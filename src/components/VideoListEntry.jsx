@@ -8,7 +8,7 @@ class VideoListEntry extends React.Component {
   }
 
   clickHandler(e) {
-    console.log(e.target.id);
+    this.props.callbackParent(e.target.id);
   }
 
   render() {

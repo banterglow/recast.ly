@@ -1,16 +1,27 @@
 class VideoList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      clickedVideo: false
+    };
+    this.newVideoSelected = this.newVideoSelected.bind(this);
+  }
+
+  newVideoSelected(videoId) {
+    this.props.callbackParent(videoId);
+    this.setState({
+      clickedVideo: videoId
+    });
   }
   
   render() {
     return (
       <div className="video-list">
-        <div><h5><VideoListEntry video={this.props.videos[0]} /></h5></div>
-        <div><h5><VideoListEntry video={this.props.videos[1]} /></h5></div>
-        <div><h5><VideoListEntry video={this.props.videos[2]} /></h5></div>
-        <div><h5><VideoListEntry video={this.props.videos[3]} /></h5></div>
-        <div><h5><VideoListEntry video={this.props.videos[4]} /></h5></div>
+        <div><h5><VideoListEntry video={this.props.videos[0]} callbackParent={this.newVideoSelected}/></h5></div>
+        <div><h5><VideoListEntry video={this.props.videos[1]} callbackParent={this.newVideoSelected}/></h5></div>
+        <div><h5><VideoListEntry video={this.props.videos[2]} callbackParent={this.newVideoSelected}/></h5></div>
+        <div><h5><VideoListEntry video={this.props.videos[3]} callbackParent={this.newVideoSelected}/></h5></div>
+        <div><h5><VideoListEntry video={this.props.videos[4]} callbackParent={this.newVideoSelected}/></h5></div>
       </div>
     );
   }

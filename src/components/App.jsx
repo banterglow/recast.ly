@@ -1,6 +1,30 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.changeVideoPlayer = this.changeVideoPlayer.bind(this);
+    this.newSearch = this.newSearch.bind(this);
+    this.state = {
+      currentVideo: this.props.videoList[0],
+      videoList: this.props.videoList
+    };
+  }
+
+  changeVideoPlayer(videoId) {
+    for (var i = 0; i < this.props.videoList.length; i++) {
+      if (this.props.videoList[i].id.videoId === videoId) {
+        this.setState({
+          currentVideo: this.props.videoList[i]
+        });
+        break;
+      }
+    }
+  }
+
+  newSearch(results) {
+    console.log(results);
+    this.setState({
+      videoList: results.items
+    });
   }
   
   render() {
@@ -8,15 +32,15 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5> <Search /></h5></div>
+            <div><h5> <Search callbackParent={this.newSearch}/></h5></div>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><h5> <VideoPlayer video={this.props.videoList[0]}/></h5></div>
+            <div><h5> <VideoPlayer video={this.state.currentVideo}/></h5></div>
           </div>
           <div className="col-md-5">
-            <div><h5> <VideoList videos={this.props.videoList} /> </h5></div>
+            <div><h5> <VideoList videos={this.state.videoList} callbackParent={this.changeVideoPlayer}/> </h5></div>
           </div>
         </div>
       </div>

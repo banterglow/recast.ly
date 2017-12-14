@@ -1,24 +1,13 @@
 class VideoPlayer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      videoId: this.props.video.id.videoId
-    };
-    this.videoChange = this.videoChange.bind(this);
-  }
-
-  videoChange(newID) {
-    this.setState( {
-      videoId: newID
-    } 
-    );
   }
 
   render() {
     return (
       <div className="video-player">
         <div className="embed-responsive embed-responsive-16by9">
-          <iframe className="embed-responsive-item" src={'https://www.youtube.com/embed/' + this.state.videoId} allowFullScreen></iframe>
+          <iframe className="embed-responsive-item" src={'https://www.youtube.com/embed/' + this.props.video.id.videoId} allowFullScreen></iframe>
         </div>
         <div className="video-player-details">
           <h3>{this.props.video.snippet.title}</h3>
