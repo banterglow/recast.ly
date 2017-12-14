@@ -28,13 +28,13 @@ body {
 
 .search-bar .form-control {
   border-radius: 2px;
-  width: 80%;
+  width: 43.4%;
 }
 .search-bar .btn {
   border-radius: 2px;
   border-color: #d3d3d3;
   background: #f8f8f8;
-  width: 20%;
+  width: 10%;
   margin-left: -1px;
 }
 

@@ -31,7 +31,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <img src="../../media/logo.png" alt="logo" />
-          <div className="col-md-6">
+          <div className="col-md-11">
             <div><h5> <Search callbackParent={this.newSearch}/></h5></div>
           </div>
         </nav>

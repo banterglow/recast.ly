@@ -2,10 +2,12 @@ class VideoPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.getVideoDetails = this.getVideoDetails.bind(this);
-    this.views;
-    this.likes;
-    this.dislikes;
-    this.timePosted;
+    this.state = {
+      views: null,
+      likes: null,
+      dislikes: null,
+      timePosted: null
+    };
   }
 
   getVideoDetails(videoId) {
@@ -18,10 +20,12 @@ class VideoPlayer extends React.Component {
         id: videoId,
       },
       success: function (data) {
-        outerThis.views = data.items[0].statistics.viewCount;
-        outerThis.likes = data.items[0].statistics.likeCount;
-        outerThis.dislikes = data.items[0].statistics.dislikeCount;
-        outerThis.timePosted = data.items[0].snippet.publishedAt;
+        outerThis.setState({
+          views: data.items[0].statistics.viewCount,
+          likes: data.items[0].statistics.likeCount,
+          dislikes: data.items[0].statistics.dislikeCount,
+          timePosted: data.items[0].snippet.publishedAt.slice(0, 10)
+        });
       }
     });
   }
@@ -36,10 +40,10 @@ class VideoPlayer extends React.Component {
         <div className="video-player-details">
           <h3>{this.props.video.snippet.title}</h3>
           <div className="featured-video-caption">{this.props.video.snippet.description}</div>
-          <div className="featured-video-caption"> Time Posted: {this.timePosted} </div>
-          <div className="featured-video-caption"> Views: {new Intl.NumberFormat().format(this.views)} </div>
-          <div className="featured-video-caption"> Likes: {new Intl.NumberFormat().format(this.likes)} </div>
-          <div className="featured-video-caption"> Dislikes: {new Intl.NumberFormat().format(this.dislikes)} </div>
+          <div className="featured-video-caption"> Date Posted: {this.state.timePosted} </div>
+          <div className="featured-video-caption"> Views: {new Intl.NumberFormat().format(this.state.views)} </div>
+          <div className="featured-video-caption"> Likes: {new Intl.NumberFormat().format(this.state.likes)} </div>
+          <div className="featured-video-caption"> Dislikes: {new Intl.NumberFormat().format(this.state.dislikes)} </div>
           
         </div>
       </div>
