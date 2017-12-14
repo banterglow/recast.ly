@@ -1,14 +1,24 @@
-var VideoList = () => (
-  <div className="video-list">
-    <div><h5><em>videoListEntry</em> view goes here</h5></div>
-    <div><h5><em>videoListEntry</em> view goes here</h5></div>
-    <div><h5><em>videoListEntry</em> view goes here</h5></div>
-    <div><h5><em>videoListEntry</em> view goes here</h5></div>
-    <div><h5><em>videoListEntry</em> view goes here</h5></div>
-  </div>
-);
+class VideoList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    return (
+      <div className="video-list">
+        <div><h5><VideoListEntry video={this.props.videos[0]} /></h5></div>
+        <div><h5><VideoListEntry video={this.props.videos[1]} /></h5></div>
+        <div><h5><VideoListEntry video={this.props.videos[2]} /></h5></div>
+        <div><h5><VideoListEntry video={this.props.videos[3]} /></h5></div>
+        <div><h5><VideoListEntry video={this.props.videos[4]} /></h5></div>
+      </div>
+    );
+  }
 
-// PropTypes tell other developers what `props` a component expects
+
+}
+
+// PropTypes tell other developers what `this.props` a component expects
 // Warnings will be shown in the console when the defined rules are violated
 VideoList.propTypes = {
   videos: React.PropTypes.array.isRequired
