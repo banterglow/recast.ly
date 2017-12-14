@@ -10,6 +10,12 @@ body {
   margin-bottom: 20px;
 }
 
+.featured-video-caption {
+  font-size: 14px;
+  color: #999;
+  padding-bottom: 10px;
+}
+
 .navbar img {
   height: 100px;
   display: inline-block;
