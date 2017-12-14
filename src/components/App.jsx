@@ -10,10 +10,10 @@ class App extends React.Component {
   }
 
   changeVideoPlayer(videoId) {
-    for (var i = 0; i < this.props.videoList.length; i++) {
-      if (this.props.videoList[i].id.videoId === videoId) {
+    for (var i = 0; i < this.state.videoList.length; i++) {
+      if (this.state.videoList[i].id.videoId === videoId) {
         this.setState({
-          currentVideo: this.props.videoList[i]
+          currentVideo: this.state.videoList[i]
         });
         break;
       }
@@ -21,7 +21,6 @@ class App extends React.Component {
   }
 
   newSearch(results) {
-    console.log(results);
     this.setState({
       videoList: results.items
     });

@@ -1,17 +1,11 @@
 class VideoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      clickedVideo: false
-    };
     this.newVideoSelected = this.newVideoSelected.bind(this);
   }
 
   newVideoSelected(videoId) {
     this.props.callbackParent(videoId);
-    this.setState({
-      clickedVideo: videoId
-    });
   }
   
   render() {
