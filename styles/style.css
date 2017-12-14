@@ -13,12 +13,24 @@ body {
 .featured-video-caption {
   font-size: 14px;
   color: #999;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
+}
+
+.statistics {
+  text-align: left;
+  color: #E62117;
+  font-size: 14px;
+}
+
+.channel {
+  color: #E62117;
+  font-size: 20px;
 }
 
 .navbar img {
   height: 100px;
   display: inline-block;
+  padding-left:8px
 }
 
 .search-bar {

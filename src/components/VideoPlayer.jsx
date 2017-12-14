@@ -3,10 +3,11 @@ class VideoPlayer extends React.Component {
     super(props);
     this.getVideoDetails = this.getVideoDetails.bind(this);
     this.state = {
+      channel: null,
       views: null,
       likes: null,
       dislikes: null,
-      timePosted: null
+      datePosted: null
     };
   }
 
@@ -21,10 +22,11 @@ class VideoPlayer extends React.Component {
       },
       success: function (data) {
         outerThis.setState({
+          channel: data.items[0].snippet.channelTitle,
           views: data.items[0].statistics.viewCount,
           likes: data.items[0].statistics.likeCount,
           dislikes: data.items[0].statistics.dislikeCount,
-          timePosted: data.items[0].snippet.publishedAt.slice(0, 10)
+          datePosted: data.items[0].snippet.publishedAt.slice(0, 10)
         });
       }
     });
@@ -39,12 +41,13 @@ class VideoPlayer extends React.Component {
         </div>
         <div className="video-player-details">
           <h3>{this.props.video.snippet.title}</h3>
+          <p className="channel"> {this.state.channel}</p>
           <div className="featured-video-caption">{this.props.video.snippet.description}</div>
-          <div className="featured-video-caption"> Date Posted: {this.state.timePosted} </div>
-          <div className="featured-video-caption"> Views: {new Intl.NumberFormat().format(this.state.views)} </div>
-          <div className="featured-video-caption"> Likes: {new Intl.NumberFormat().format(this.state.likes)} </div>
-          <div className="featured-video-caption"> Dislikes: {new Intl.NumberFormat().format(this.state.dislikes)} </div>
-          
+          <div>
+            <p className="statistics"> <strong> Date Posted: </strong>{this.state.datePosted}</p>
+            <p className="statistics"> <strong>Likes:</strong> {new Intl.NumberFormat().format(this.state.likes)} <strong>Dislikes:</strong> {new Intl.NumberFormat().format(this.state.dislikes)}</p>
+            <p className="statistics"> <strong>Views:</strong> {new Intl.NumberFormat().format(this.state.views)} </p>
+          </div>
         </div>
       </div>
     );
