@@ -30,7 +30,8 @@ class App extends React.Component {
     return (
       <div>
         <nav className="navbar">
-          <div className="col-md-6 offset-md-3">
+          <img src="../../media/logo.png" alt="logo" />
+          <div className="col-md-6">
             <div><h5> <Search callbackParent={this.newSearch}/></h5></div>
           </div>
         </nav>

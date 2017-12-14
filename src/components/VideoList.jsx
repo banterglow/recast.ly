@@ -11,16 +11,13 @@ class VideoList extends React.Component {
   render() {
     return (
       <div className="video-list">
-        <div><h5><VideoListEntry video={this.props.videos[0]} callbackParent={this.newVideoSelected}/></h5></div>
-        <div><h5><VideoListEntry video={this.props.videos[1]} callbackParent={this.newVideoSelected}/></h5></div>
-        <div><h5><VideoListEntry video={this.props.videos[2]} callbackParent={this.newVideoSelected}/></h5></div>
-        <div><h5><VideoListEntry video={this.props.videos[3]} callbackParent={this.newVideoSelected}/></h5></div>
-        <div><h5><VideoListEntry video={this.props.videos[4]} callbackParent={this.newVideoSelected}/></h5></div>
+        {this.props.videos.map(newVideo => {
+          // using map requires that you assign a unique key to each child. Added key, but still getting error.
+          return <div><h5> <VideoListEntry key={newVideo.id.videoId.toString()} video={newVideo} callbackParent={this.newVideoSelected} /></h5></div>;
+        })}
       </div>
     );
   }
-
-
 }
 
 // PropTypes tell other developers what `this.props` a component expects

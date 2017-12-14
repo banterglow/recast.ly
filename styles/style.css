@@ -11,8 +11,8 @@ body {
 }
 
 .navbar img {
-  height: 40px;
-  width: 50px;
+  height: 100px;
+  display: inline-block;
 }
 
 .search-bar {
@@ -22,7 +22,7 @@ body {
 
 .search-bar .form-control {
   border-radius: 2px;
-  width: 80%
+  width: 80%;
 }
 .search-bar .btn {
   border-radius: 2px;
@@ -36,6 +36,10 @@ body {
   border-color: #c6c6c6;
   background: #f0f0f0;
   box-shadow: 0 1px 0 rgba(0,0,0,0.10);
+}
+
+.btn:active{
+  transform: translateY(1px);
 }
 
 .video-player {

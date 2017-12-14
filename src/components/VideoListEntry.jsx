@@ -2,13 +2,10 @@ class VideoListEntry extends React.Component {
   constructor(props) {
     super(props);
     this.clickHandler = this.clickHandler.bind(this);
-    this.state = {
-      clicked: false
-    };
   }
 
-  clickHandler(e) {
-    this.props.callbackParent(e.target.id);
+  clickHandler({target}) {
+    this.props.callbackParent(target.id);
   }
 
   render() {

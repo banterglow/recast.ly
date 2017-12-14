@@ -6,7 +6,7 @@ class Search extends React.Component {
 
 
 
-  searchSubmit(e) {
+  searchSubmit() {
     let query = $('.form-control').val();
     let outerThis = this;
     $.ajax({
