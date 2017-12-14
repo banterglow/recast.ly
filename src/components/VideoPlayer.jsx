@@ -26,7 +26,7 @@ class VideoPlayer extends React.Component {
           views: data.items[0].statistics.viewCount,
           likes: data.items[0].statistics.likeCount,
           dislikes: data.items[0].statistics.dislikeCount,
-          datePosted: data.items[0].snippet.publishedAt.slice(0, 10)
+          datePosted: moment(data.items[0].snippet.publishedAt).format('MMMM Do YYYY')
         });
       }
     });
@@ -39,14 +39,15 @@ class VideoPlayer extends React.Component {
         <div className="embed-responsive embed-responsive-16by9">
           <iframe className="embed-responsive-item" src={`https://www.youtube.com/embed/${this.props.video.id.videoId}`} allowFullScreen></iframe>
         </div>
-        <div className="video-player-details">
+        <div className="video-player-details container-fluid">
           <h3>{this.props.video.snippet.title}</h3>
-          <p className="channel"> {this.state.channel}</p>
+          <p className="channel"> <strong>{this.state.channel}</strong></p>
           <div className="featured-video-caption">{this.props.video.snippet.description}</div>
-          <div>
-            <p className="statistics"> <strong> Date Posted: </strong>{this.state.datePosted}</p>
-            <p className="statistics"> <strong>Likes:</strong> {new Intl.NumberFormat().format(this.state.likes)} <strong>Dislikes:</strong> {new Intl.NumberFormat().format(this.state.dislikes)}</p>
-            <p className="statistics"> <strong>Views:</strong> {new Intl.NumberFormat().format(this.state.views)} </p>
+          <div className="row">
+            <div className="statistics col-sm-4"> <strong>Date Posted: </strong>{this.state.datePosted}</div>
+            <div className="statistics col-sm-6"> <strong>Views:</strong> {new Intl.NumberFormat().format(this.state.views)} </div>
+            <div className="statistics col-sm-4"> <strong>Likes:</strong> {new Intl.NumberFormat().format(this.state.likes)}</div>
+            <div className="statistics col-sm-6"> <strong>Dislikes:</strong> {new Intl.NumberFormat().format(this.state.dislikes)}</div>
           </div>
         </div>
       </div>
