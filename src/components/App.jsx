@@ -4,18 +4,41 @@ class App extends React.Component {
     this.changeVideoPlayer = this.changeVideoPlayer.bind(this);
     this.newSearch = this.newSearch.bind(this);
     this.state = {
-      page: 1,
       currentVideo: this.props.videoList.items[0],
-      videoList: this.props.videoList.items
+      videoList: this.props.videoList.items,
+      channel: null,
+      channelId: null,
+      views: null,
+      likes: null,
+      dislikes: null,
+      datePosted: null
     };
   }
 
   changeVideoPlayer(videoId) {
     for (var i = 0; i < this.state.videoList.length; i++) {
       if (this.state.videoList[i].id.videoId === videoId) {
-        this.setState({
-          currentVideo: this.state.videoList[i]
+        let self = this;
+        $.ajax({
+          url: 'https://www.googleapis.com/youtube/v3/videos',
+          data: {
+            part: 'statistics, snippet',
+            key: window.YOUTUBE_API_KEY,
+            id: videoId,
+          },
+          success: function (data) {
+            self.setState({
+              currentVideo: self.state.videoList[i],
+              channel: data.items[0].snippet.channelTitle,
+              channelId: data.items[0].snippet.channelId,
+              views: data.items[0].statistics.viewCount,
+              likes: data.items[0].statistics.likeCount,
+              dislikes: data.items[0].statistics.dislikeCount,
+              datePosted: moment(data.items[0].snippet.publishedAt).format('MMMM Do YYYY')
+            });
+          }
         });
+        
         break;
       }
     }
@@ -45,7 +68,7 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><h5> <VideoPlayer video={this.state.currentVideo}/></h5></div>
+            <div><h5> <VideoPlayer video={this.state}/></h5></div>
           </div>
           <div className="col-md-5">
             <div><h5> <VideoList videos={this.state.videoList} callbackParentVideo={this.changeVideoPlayer} callbackParentNextPage={this.nextPage}/> </h5></div>
