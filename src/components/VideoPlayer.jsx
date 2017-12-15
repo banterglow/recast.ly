@@ -2,16 +2,41 @@ class VideoPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.getVideoDetails = this.getVideoDetails.bind(this);
+    // this.getChannelIcon = this.getChannelIcon.bind(this);
     this.state = {
       channel: null,
+      channelId: null,
       views: null,
       likes: null,
       dislikes: null,
       datePosted: null,
-      creatorId: null,
       creatorIcon: null
     };
   }
+
+  // componentWillMount() {
+  //   this.getVideoDetails(this.props.video.id.videoId);
+  //   this.getChannelIcon(this.props.video.snippet.channelId);
+  // }
+
+  // getChannelIcon(creatorId) {
+  //   console.log(creatorId);
+  //   let outerThis = this;
+  //   return $.ajax({
+  //     url: 'https://www.googleapis.com/youtube/v3/channels',
+  //     data: {
+  //       part: 'snippet',
+  //       key: window.YOUTUBE_API_KEY,
+  //       id: creatorId,
+  //     },
+  //     success: function (data) {
+  //       console.log('first log', data);
+  //       outerThis.setState({
+  //         creatorIcon: data.items[0].snippet.thumbnails.default.url
+  //       });
+  //     }
+  //   });
+  // }
 
   getVideoDetails(videoId) {
     let outerThis = this;
@@ -25,6 +50,7 @@ class VideoPlayer extends React.Component {
       success: function (data) {
         outerThis.setState({
           channel: data.items[0].snippet.channelTitle,
+          channelId: data.items[0].snippet.channelId,
           views: data.items[0].statistics.viewCount,
           likes: data.items[0].statistics.likeCount,
           dislikes: data.items[0].statistics.dislikeCount,
@@ -32,32 +58,9 @@ class VideoPlayer extends React.Component {
         });
       }
     });
-
-    // getCreatorIcon(creatorId) {
-    //   let outerThis = this;
-    //   return $.ajax({
-    //     url: 'https://www.googleapis.com/youtube/v3/videos',
-    //     data: {
-    //       part: 'statistics, snippet',
-    //       key: window.YOUTUBE_API_KEY,
-    //       id: videoId,
-    //     },
-    //     success: function (data) {
-    //       outerThis.setState({
-    //         channel: data.items[0].snippet.channelTitle,
-    //         views: data.items[0].statistics.viewCount,
-    //         likes: data.items[0].statistics.likeCount,
-    //         dislikes: data.items[0].statistics.dislikeCount,
-    //         datePosted: moment(data.items[0].snippet.publishedAt).format('MMMM Do YYYY')
-    //       });
-    //     }
-    //   });
-
   }
 
   render() {
-    // issue. this uses setState to force the video details to load on page open. 
-    // this then causes an endless loop of calling the function -> setState -> render -> function
     this.getVideoDetails(this.props.video.id.videoId);
     return (
       <div className="video-player">
@@ -66,6 +69,7 @@ class VideoPlayer extends React.Component {
         </div>
         <div className="video-player-details container-fluid">
           <h3>{this.props.video.snippet.title}</h3>
+          <img className = "creatorIcon" src={this.state.creatorIcon} />
           <p className="channel"> <strong>{this.state.channel}</strong></p>
           <div className="featured-video-caption">{this.props.video.snippet.description}</div>
           <div className="row">
