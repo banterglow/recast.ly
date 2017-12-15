@@ -3,15 +3,7 @@ class VideoPlayer extends React.Component {
     super(props);
     this.getVideoDetails = this.getVideoDetails.bind(this);
     // this.getChannelIcon = this.getChannelIcon.bind(this);
-    this.state = {
-      channel: null,
-      channelId: null,
-      views: null,
-      likes: null,
-      dislikes: null,
-      datePosted: null,
-      creatorIcon: null
-    };
+    this.property = {};
   }
 
   // componentWillMount() {
@@ -48,20 +40,19 @@ class VideoPlayer extends React.Component {
         id: videoId,
       },
       success: function (data) {
-        outerThis.setState({
-          channel: data.items[0].snippet.channelTitle,
-          channelId: data.items[0].snippet.channelId,
-          views: data.items[0].statistics.viewCount,
-          likes: data.items[0].statistics.likeCount,
-          dislikes: data.items[0].statistics.dislikeCount,
-          datePosted: moment(data.items[0].snippet.publishedAt).format('MMMM Do YYYY')
-        });
+        outerThis.property.channel = data.items[0].snippet.channelTitle;
+        outerThis.property.channelId = data.items[0].snippet.channelId;
+        outerThis.property.views = data.items[0].statistics.viewCount;
+        outerThis.property.likes = data.items[0].statistics.likeCount;
+        outerThis.property.dislikes = data.items[0].statistics.dislikeCount;
+        outerThis.property.datePosted = moment(data.items[0].snippet.publishedAt).format('MMMM Do YYYY');
       }
     });
   }
 
   render() {
-    // bug where render is called in a circular loop due to the below function
+    // bug where video may load before the async ajax call for details is completed
+    // first load does not include details
     this.getVideoDetails(this.props.video.id.videoId);
     return (
       <div className="video-player">
@@ -70,14 +61,14 @@ class VideoPlayer extends React.Component {
         </div>
         <div className="video-player-details container-fluid">
           <h3>{this.props.video.snippet.title}</h3>
-          <img className = "creatorIcon" src={this.state.creatorIcon} />
-          <p className="channel"> <strong>{this.state.channel}</strong></p>
+          {/* <img className = "creatorIcon" src={this.state.creatorIcon} /> */}
+          <p className="channel"> <strong>{this.property.channel}</strong></p>
           <div className="featured-video-caption">{this.props.video.snippet.description}</div>
           <div className="row">
-            <div className="statistics col-sm-4"> <strong>Date Posted: </strong>{this.state.datePosted}</div>
-            <div className="statistics col-sm-6"> <strong>Views:</strong> {new Intl.NumberFormat().format(this.state.views)} </div>
-            <div className="like-number statistics col-sm-4"> <strong><img className = "likes" src="../../media/like.png" alt="like" /></strong> {new Intl.NumberFormat().format(this.state.likes)}</div>
-            <div className="like-number statistics col-sm-6"> <strong><img className = "likes" src="../../media/dislike.png" alt="dislike" /></strong> {new Intl.NumberFormat().format(this.state.dislikes)}</div>
+            <div className="statistics col-sm-4"> <strong>Date Posted: </strong>{this.property.datePosted}</div>
+            <div className="statistics col-sm-6"> <strong>Views:</strong> {new Intl.NumberFormat().format(this.property.views)} </div>
+            <div className="like-number statistics col-sm-4"> <strong><img className = "likes" src="../../media/like.png" alt="like" /></strong> {new Intl.NumberFormat().format(this.property.likes)}</div>
+            <div className="like-number statistics col-sm-6"> <strong><img className = "likes" src="../../media/dislike.png" alt="dislike" /></strong> {new Intl.NumberFormat().format(this.property.dislikes)}</div>
           </div>
         </div>
       </div>
