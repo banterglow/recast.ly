@@ -61,6 +61,7 @@ class VideoPlayer extends React.Component {
   }
 
   render() {
+    // bug where render is called in a circular loop due to the below function
     this.getVideoDetails(this.props.video.id.videoId);
     return (
       <div className="video-player">
