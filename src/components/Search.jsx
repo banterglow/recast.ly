@@ -7,6 +7,7 @@ class Search extends React.Component {
 
 
   searchSubmit() {
+    let sortType = $('.dropdown').val();
     let query = $('.form-control').val();
     let outerThis = this;
     $.ajax({
@@ -16,6 +17,7 @@ class Search extends React.Component {
         key: window.YOUTUBE_API_KEY,
         q: query,
         maxResults: 5,
+        order: sortType,
         type: 'video',
         videoEmbeddable: 'true'
       },
@@ -33,6 +35,12 @@ class Search extends React.Component {
         <button className="btn hidden-sm-down" onClick={this.searchSubmit}>
           <span className="glyphicon glyphicon-search"></span>
         </button>
+        <select className="btn hidden-sm-down dropdown" onChange={this.searchSubmit}>
+          <option value="viewCount">View Count</option>
+          <option value="date">Recent</option>
+          <option value="relevance">Relevance</option>
+          <option value="rating">Rating</option>
+        </select>
       </div> 
     );
   }

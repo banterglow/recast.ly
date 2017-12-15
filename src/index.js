@@ -6,10 +6,11 @@ $.ajax({
     key: window.YOUTUBE_API_KEY,
     q: 'The Last Jedi',
     maxResults: 5,
+    order: 'viewCount',
     type: 'video',
     videoEmbeddable: 'true'
   },
   success: function (data) {
-    ReactDOM.render(<App videoList={data.items} />, document.getElementById('app'));
+    ReactDOM.render(<App videoList={data} />, document.getElementById('app'));
   }
 });

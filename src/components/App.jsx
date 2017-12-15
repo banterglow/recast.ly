@@ -4,8 +4,9 @@ class App extends React.Component {
     this.changeVideoPlayer = this.changeVideoPlayer.bind(this);
     this.newSearch = this.newSearch.bind(this);
     this.state = {
-      currentVideo: this.props.videoList[0],
-      videoList: this.props.videoList
+      page: 1,
+      currentVideo: this.props.videoList.items[0],
+      videoList: this.props.videoList.items
     };
   }
 
@@ -22,7 +23,14 @@ class App extends React.Component {
 
   newSearch(results) {
     this.setState({
+      page: 1,
       videoList: results.items
+    });
+  }
+
+  nextPage() {
+    this.setState({
+      page: this.page++
     });
   }
   
@@ -32,7 +40,7 @@ class App extends React.Component {
         <nav className="navbar">
           <img src="../../media/logo.png" alt="logo" />
           <div className="col-md-11">
-            <div><h5> <Search callbackParent={this.newSearch}/></h5></div>
+            <div><h5> <Search callbackParent={this.newSearch} page={this.page}/></h5></div>
           </div>
         </nav>
         <div className="row">
@@ -40,7 +48,7 @@ class App extends React.Component {
             <div><h5> <VideoPlayer video={this.state.currentVideo}/></h5></div>
           </div>
           <div className="col-md-5">
-            <div><h5> <VideoList videos={this.state.videoList} callbackParent={this.changeVideoPlayer}/> </h5></div>
+            <div><h5> <VideoList videos={this.state.videoList} callbackParentVideo={this.changeVideoPlayer} callbackParentNextPage={this.nextPage}/> </h5></div>
           </div>
         </div>
       </div>

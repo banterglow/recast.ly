@@ -1,11 +1,12 @@
 class VideoList extends React.Component {
   constructor(props) {
     super(props);
+    this.nextPage = this.props.videos.nextPageToken;
     this.newVideoSelected = this.newVideoSelected.bind(this);
   }
 
   newVideoSelected(videoId) {
-    this.props.callbackParent(videoId);
+    this.props.callbackParentVideo(videoId);
   }
   
   render() {
@@ -15,6 +16,7 @@ class VideoList extends React.Component {
           // using map requires that you assign a unique key to each child. Added key, but still getting error.
           return <div><h5> <VideoListEntry key={newVideo.id.videoId.toString()} video={newVideo} callbackParent={this.newVideoSelected} /></h5></div>;
         })}
+        {/* <button type="button" className="moreResults">More results</button> */}
       </div>
     );
   }

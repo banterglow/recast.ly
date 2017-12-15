@@ -7,7 +7,9 @@ class VideoPlayer extends React.Component {
       views: null,
       likes: null,
       dislikes: null,
-      datePosted: null
+      datePosted: null,
+      creatorId: null,
+      creatorIcon: null
     };
   }
 
@@ -30,9 +32,32 @@ class VideoPlayer extends React.Component {
         });
       }
     });
+
+    // getCreatorIcon(creatorId) {
+    //   let outerThis = this;
+    //   return $.ajax({
+    //     url: 'https://www.googleapis.com/youtube/v3/videos',
+    //     data: {
+    //       part: 'statistics, snippet',
+    //       key: window.YOUTUBE_API_KEY,
+    //       id: videoId,
+    //     },
+    //     success: function (data) {
+    //       outerThis.setState({
+    //         channel: data.items[0].snippet.channelTitle,
+    //         views: data.items[0].statistics.viewCount,
+    //         likes: data.items[0].statistics.likeCount,
+    //         dislikes: data.items[0].statistics.dislikeCount,
+    //         datePosted: moment(data.items[0].snippet.publishedAt).format('MMMM Do YYYY')
+    //       });
+    //     }
+    //   });
+
   }
 
   render() {
+    // issue. this uses setState to force the video details to load on page open. 
+    // this then causes an endless loop of calling the function -> setState -> render -> function
     this.getVideoDetails(this.props.video.id.videoId);
     return (
       <div className="video-player">
@@ -46,8 +71,8 @@ class VideoPlayer extends React.Component {
           <div className="row">
             <div className="statistics col-sm-4"> <strong>Date Posted: </strong>{this.state.datePosted}</div>
             <div className="statistics col-sm-6"> <strong>Views:</strong> {new Intl.NumberFormat().format(this.state.views)} </div>
-            <div className="statistics col-sm-4"> <strong>Likes:</strong> {new Intl.NumberFormat().format(this.state.likes)}</div>
-            <div className="statistics col-sm-6"> <strong>Dislikes:</strong> {new Intl.NumberFormat().format(this.state.dislikes)}</div>
+            <div className="like-number statistics col-sm-4"> <strong><img className = "likes" src="../../media/like.png" alt="like" /></strong> {new Intl.NumberFormat().format(this.state.likes)}</div>
+            <div className="like-number statistics col-sm-6"> <strong><img className = "likes" src="../../media/dislike.png" alt="dislike" /></strong> {new Intl.NumberFormat().format(this.state.dislikes)}</div>
           </div>
         </div>
       </div>

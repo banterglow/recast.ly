@@ -5,6 +5,11 @@ body {
   font-family: Raleway;
 }
 
+.dropdown {
+  height:38px;
+}
+
+
 .navbar {
   background: #fff;
   margin-bottom: 20px;
@@ -16,11 +21,16 @@ body {
   padding-bottom: 20px;
 }
 
+
 .statistics {
   text-align: left;
-  color: #E62117;
+  color: #999;
   font-size: 14px;
   padding-bottom: 12px;
+}
+
+.likes {
+  height: 20px;
 }
 
 .channel {
@@ -69,9 +79,10 @@ body {
 .video-player-details {
   background: #fff;
   padding: 8px;
-  border: 0;
+  border: 12px;
   box-shadow: 0 1px 2px rgba(0,0,0,.1);
   margin-top: 10px;
+  border-color: black;
 }
 
 .video-list {
